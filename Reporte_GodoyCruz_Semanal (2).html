@@ -1,0 +1,381 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>📊 REPORTE DE FLUCTUACIÓN DELICTIVA SEMANAL DE JPD GODOY CRUZ</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; }
+        .container { max-width: 800px; margin: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .header { background-color: #1565c0; color: white; padding: 10px; font-size: 14px; font-weight: bold; margin-bottom: 20px; text-align: center; }
+        .chart-container { width: 100%; min-height: 300px; margin-bottom: 20px; }
+        h1 { font-size: 20px; text-align: center; color: #333; }
+        h2 { font-size: 18px; margin-top: 25px; text-align: center; color: #333; }
+        p { text-align: center; color: #333; }
+        .date-range { color: #555; margin-bottom: 30px; }
+        .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center; margin-bottom: 20px; }
+        .summary-box { border: 1px solid #ddd; padding: 15px; border-radius: 5px; background-color: #f9f9f9; }
+        .summary-title { font-weight: bold; font-size: 16px; margin-bottom: 5px; }
+        .summary-value { font-size: 14px; }
+        .variation { font-weight: bold; margin-top: 10px; }
+        .variation-up { color: #d32f2f; }
+        .variation-down { color: #388e3c; }
+        .variation-stable { color: #757575; }
+        .table-container { overflow-x: auto; margin-bottom: 25px; }
+        
+        /* Estilo mejorado para las tablas */
+        table { width: 100%; border-collapse: collapse; min-width: 500px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 12px; }
+        th { background-color: #f2f2f2; font-weight: bold; }
+        tbody tr:hover { background-color: #e0f2f1; cursor: pointer; }
+
+        .footer { font-size: 10px; color: #777; margin-top: 40px; }
+        @media (max-width: 600px) {
+          .summary-grid { grid-template-columns: 1fr; }
+          h1 { font-size: 16px; }
+          .container { padding: 10px; }
+        }
+      </style>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawAllCharts);
+
+        function drawAllCharts() {
+          drawChartDelitos();
+          drawChartDias();
+          drawChartHorario();
+          drawChartDependencias();
+        }
+
+        function drawChartDelitos() {
+          var data = google.visualization.arrayToDataTable([
+            ['Categoría', 'Semana 1', 'Semana 2'],
+            ['Robo', 8, 9],
+['Robo c/Arma Fuego', 3, 8],
+['Hurto', 6, 3],
+['Hurto Agrav.', 4, 2],
+['Robo Agrav.', 5, 0],
+['Robo EGT', 1, 2],
+['Robo x Escala', 1, 1],
+['Robo c/Arma Blanca', 1, 0]
+          ]);
+          var options = {
+            title: 'Análisis estadístico de los Delitos',
+            titleTextStyle: { fontSize: 16 },
+            legend: { position: 'top' },
+            colors: ['#1565c0', '#42a5f5'],
+            hAxis: { minValue: 0 },
+            bar: { groupWidth: '80%' }
+          };
+          var chart = new google.visualization.BarChart(document.getElementById('chart_delitos'));
+          chart.draw(data, options);
+        }
+
+        function drawChartDias() {
+          var data = google.visualization.arrayToDataTable([
+            ['Categoría', 'Semana 1', 'Semana 2'],
+            ['Lunes', 3, 3],
+['Martes', 5, 3],
+['Miércoles', 8, 2],
+['Jueves', 2, 2],
+['Viernes', 2, 5],
+['Sábado', 4, 7],
+['Domingo', 5, 3]
+          ]);
+          var options = {
+            title: 'Análisis por Día de la Semana',
+            titleTextStyle: { fontSize: 16 },
+            legend: { position: 'top' },
+            colors: ['#388e3c', '#81c784'],
+            curveType: 'function' // Curvas suaves
+          };
+          var chart = new google.visualization.LineChart(document.getElementById('chart_dias'));
+          chart.draw(data, options);
+        }
+
+        function drawChartHorario() {
+          var data = google.visualization.arrayToDataTable([
+            ['Categoría', 'Semana 1', 'Semana 2'],
+            ['🌙 Madrugada (00:00 - 05:59)', 9, 3],
+['🌤️ Mañana (06:00 - 11:59)', 5, 10],
+['🌆 Noche (18:00 - 23:59)', 10, 8],
+['☀️ Tarde (12:00 - 17:59)', 5, 4]
+          ]);
+          var options = {
+            title: 'Análisis por Rango Horario',
+            titleTextStyle: { fontSize: 16 },
+            legend: { position: 'top' },
+            colors: ['#ff8f00', '#ffb300'],
+            isStacked: true, // Gráfico de barras apiladas
+            vAxis: { minValue: 0 },
+            bar: { groupWidth: '80%' }
+          };
+          var chart = new google.visualization.ColumnChart(document.getElementById('chart_horario'));
+          chart.draw(data, options);
+        }
+
+        function drawChartDependencias() {
+          var data = google.visualization.arrayToDataTable([
+            ['Categoría', 'Semana 1', 'Semana 2'],
+            ['Cria 40', 6, 5],
+['Cria 7', 7, 2],
+['Cria 34', 2, 7],
+['Cria 52', 4, 3],
+['Cria 27', 3, 3],
+['Cria 50', 1, 3],
+['Cria 37', 2, 1],
+['GC', 3, 0],
+['ZIM', 1, 1]
+          ]);
+          var options = {
+            title: 'Total de Delitos por Dependencia',
+            titleTextStyle: { fontSize: 16 },
+            legend: { position: 'top' },
+            colors: ['#d32f2f', '#e57373'],
+            hAxis: { minValue: 0 },
+            bar: { groupWidth: '80%' }
+          };
+          var chart = new google.visualization.BarChart(document.getElementById('chart_dependencias'));
+          chart.draw(data, options);
+        }
+
+      </script>
+    </head>
+    <body>
+      <div class="container">
+        <h1>📊 REPORTE DE FLUCTUACIÓN DELICTIVA SEMANAL DE JPD GODOY CRUZ</h1>
+        <h2>📅 COMPARACIÓN</h2>
+        <p class="date-range">Semana del 7/21/2025 hasta el 7/27/2025 Vs. Semana del 7/28/2025 hasta el 8/3/2025</p>
+  <div class="summary-grid">
+      <div class="summary-box">
+        <div class="summary-title">🏞️ G. CRUZ</div>
+        <p class="summary-value">Semana 1: <b>29</b></p>
+        <p class="summary-value">Semana 2: <b>25</b></p>
+        <p class="summary-value">Total: <b>54</b></p>
+        <p class="variation variation-down">▼ -14% (-4 casos)</p>
+      </div>
+    </div>
+    <div class="header">📊 ANÁLISIS ESTADÍSTICO DE LOS DELITOS</div>
+    <div id="chart_delitos" class="chart-container"></div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Semana 1</th>
+            <th>Semana 2</th>
+            <th>📊 Variación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>Robo</td>
+              <td>8</td>
+              <td>9</td>
+              <td class="variation-up">▲ 13% (+1)</td>
+            </tr><tr>
+              <td>Robo c/Arma Fuego</td>
+              <td>3</td>
+              <td>8</td>
+              <td class="variation-up">▲ 167% (+5)</td>
+            </tr><tr>
+              <td>Hurto</td>
+              <td>6</td>
+              <td>3</td>
+              <td class="variation-down">▼ 50% (-3)</td>
+            </tr><tr>
+              <td>Hurto Agrav.</td>
+              <td>4</td>
+              <td>2</td>
+              <td class="variation-down">▼ 50% (-2)</td>
+            </tr><tr>
+              <td>Robo Agrav.</td>
+              <td>5</td>
+              <td>0</td>
+              <td class="variation-down">▼ 100% (-5)</td>
+            </tr><tr>
+              <td>Robo EGT</td>
+              <td>1</td>
+              <td>2</td>
+              <td class="variation-up">▲ 100% (+1)</td>
+            </tr><tr>
+              <td>Robo x Escala</td>
+              <td>1</td>
+              <td>1</td>
+              <td class="variation-stable">· 0% (0)</td>
+            </tr><tr>
+              <td>Robo c/Arma Blanca</td>
+              <td>1</td>
+              <td>0</td>
+              <td class="variation-down">▼ 100% (-1)</td>
+            </tr><tr><td colspan="4" style="font-weight: bold;">🔎 Mayor aumento: Robo c/Arma Fuego (+5) | Mayor baja: Robo Agrav. (-5)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="header">📅 ANÁLISIS POR DÍA DE LA SEMANA</div>
+    <div id="chart_dias" class="chart-container"></div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Semana 1</th>
+            <th>Semana 2</th>
+            <th>📊 Variación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>Sábado</td>
+              <td>4</td>
+              <td>7</td>
+              <td class="variation-up">▲ 75% (+3)</td>
+            </tr><tr>
+              <td>Miércoles</td>
+              <td>8</td>
+              <td>2</td>
+              <td class="variation-down">▼ 75% (-6)</td>
+            </tr><tr>
+              <td>Martes</td>
+              <td>5</td>
+              <td>3</td>
+              <td class="variation-down">▼ 40% (-2)</td>
+            </tr><tr>
+              <td>Domingo</td>
+              <td>5</td>
+              <td>3</td>
+              <td class="variation-down">▼ 40% (-2)</td>
+            </tr><tr>
+              <td>Viernes</td>
+              <td>2</td>
+              <td>5</td>
+              <td class="variation-up">▲ 150% (+3)</td>
+            </tr><tr>
+              <td>Lunes</td>
+              <td>3</td>
+              <td>3</td>
+              <td class="variation-stable">· 0% (0)</td>
+            </tr><tr>
+              <td>Jueves</td>
+              <td>2</td>
+              <td>2</td>
+              <td class="variation-stable">· 0% (0)</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="header">🕒 ANÁLISIS POR RANGO HORARIO</div>
+    <div id="chart_horario" class="chart-container"></div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Semana 1</th>
+            <th>Semana 2</th>
+            <th>📊 Variación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>🌆 Noche (18:00 - 23:59)</td>
+              <td>10</td>
+              <td>8</td>
+              <td class="variation-down">▼ 20% (-2)</td>
+            </tr><tr>
+              <td>🌤️ Mañana (06:00 - 11:59)</td>
+              <td>5</td>
+              <td>10</td>
+              <td class="variation-up">▲ 100% (+5)</td>
+            </tr><tr>
+              <td>🌙 Madrugada (00:00 - 05:59)</td>
+              <td>9</td>
+              <td>3</td>
+              <td class="variation-down">▼ 67% (-6)</td>
+            </tr><tr>
+              <td>☀️ Tarde (12:00 - 17:59)</td>
+              <td>5</td>
+              <td>4</td>
+              <td class="variation-down">▼ 20% (-1)</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="header">📊 TOTAL DE DELITOS POR DEPENDENCIA</div>
+    <div id="chart_dependencias" class="chart-container"></div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Semana 1</th>
+            <th>Semana 2</th>
+            <th>📊 Variación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+              <td>Cria 40</td>
+              <td>6</td>
+              <td>5</td>
+              <td class="variation-down">▼ 17% (-1)</td>
+            </tr><tr>
+              <td>Cria 7</td>
+              <td>7</td>
+              <td>2</td>
+              <td class="variation-down">▼ 71% (-5)</td>
+            </tr><tr>
+              <td>Cria 34</td>
+              <td>2</td>
+              <td>7</td>
+              <td class="variation-up">▲ 250% (+5)</td>
+            </tr><tr>
+              <td>Cria 52</td>
+              <td>4</td>
+              <td>3</td>
+              <td class="variation-down">▼ 25% (-1)</td>
+            </tr><tr>
+              <td>Cria 27</td>
+              <td>3</td>
+              <td>3</td>
+              <td class="variation-stable">· 0% (0)</td>
+            </tr><tr>
+              <td>Cria 50</td>
+              <td>1</td>
+              <td>3</td>
+              <td class="variation-up">▲ 200% (+2)</td>
+            </tr><tr>
+              <td>Cria 37</td>
+              <td>2</td>
+              <td>1</td>
+              <td class="variation-down">▼ 50% (-1)</td>
+            </tr><tr>
+              <td>GC</td>
+              <td>3</td>
+              <td>0</td>
+              <td class="variation-down">▼ 100% (-3)</td>
+            </tr><tr>
+              <td>ZIM</td>
+              <td>1</td>
+              <td>1</td>
+              <td class="variation-stable">· 0% (0)</td>
+            </tr><tr><td colspan="4" style="font-weight: bold;">🔎 Mayor aumento: Cria 34 (+5) | Mayor baja: Cria 7 (-5)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  
+        <hr style="border: 1px solid #eee;">
+        <div class="footer">
+          <p>📌 Fuente: S.A.T. Sistema de Alerta Temprana – Carga de información de todas las intervenciones por efectivos policiales</p>
+          <p>📎 Of. Virtual de Estadísticas Delictuales y Operacionales – JPDS I</p>
+          <p>👤 Of. Ppal Lic. Sebastián González</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  
